@@ -21,9 +21,12 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:id])
   end
 
   def update
+    @post.update!(post_params)
+    redirect_to root_path
   end
 
   def destroy
@@ -38,7 +41,6 @@ class PostsController < ApplicationController
   end
 
   def correct_user
-    # binding.pry
     @post = current_user.posts.find_by(id: params[:id])
     redirect_to root_path if @post.nil?
   end
