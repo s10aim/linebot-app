@@ -6,6 +6,7 @@
   <div>
     <%= form.label :content, "内容" %>
     <%= form.text_field :content %>
+    <p><%= form.file_field :images, multiple: true %></p>
   </div>
   <div>
     <%= form.submit "送信" %>
