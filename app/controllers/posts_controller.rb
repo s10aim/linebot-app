@@ -1,13 +1,12 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user, only: %i[edit update destroy]
+  before_action :correct_user, only: %i[show edit update destroy]
 
   def index
     @posts = current_user.posts.order(id: :asc)
   end
 
   def show
-    @post = Post.find(params[:id])
   end
 
   def new
@@ -21,7 +20,6 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
   end
 
   def update
