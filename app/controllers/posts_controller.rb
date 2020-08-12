@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   def index
+    @posts = current_user.posts.order(id: :asc)
   end
 
   def show
