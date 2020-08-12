@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[line]
 
+  has_many :posts
+
   # has_many :social_profiles, dependent: :destroy
 
   def social_profile(provider)
