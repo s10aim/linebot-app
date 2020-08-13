@@ -9,6 +9,20 @@ require("@rails/activestorage").start()
 require("channels")
 require("bootstrap/dist/js/bootstrap")
 require("@fortawesome/fontawesome-free/js/all")
+require("./long-press-event")
+
+document.addEventListener("turbolinks:load", function () {
+  const editImages = document.querySelectorAll(".edit-img")
+  const editBtn = document.querySelectorAll('.edit-btn')
+
+  editImages.forEach((el) => {
+    el.addEventListener("long-press", function () {
+      editBtn.forEach((ele) => {
+        ele.classList.remove("d-none")
+      })
+    })
+  })
+})
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference

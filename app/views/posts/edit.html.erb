@@ -4,7 +4,7 @@
 <% @post.images.each_with_index do |image| %>
   <div class="edit">
     <%= image_tag image.url, class: "edit-img mb-3" %>
-    <div class="edit-btn">
+    <div class="edit-btn d-none">
       <i class="fas fa-times-circle fa-lg"></i>
     </div>
   </div>
