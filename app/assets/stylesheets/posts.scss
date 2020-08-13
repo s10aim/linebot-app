@@ -1,0 +1,16 @@
+.edit {
+  position: relative;
+  display: inline-block;
+}
+
+.edit-btn {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  opacity: 0.8;
+}
+
+.fa-times-circle {
+  background-color: white;
+  border-radius: 50%;
+}

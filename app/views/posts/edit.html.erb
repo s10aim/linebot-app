@@ -1,8 +1,13 @@
-<div class="container-fluid mt-5" style="max-width: 800px; text-align: center;">
+<div class="container-fluid mt-5" style="max-width: 1200px; text-align: center;">
   <h1>編集</h1>
-  <p><%= @post.title %></p>
-  <% @post.images.each do |image| %>
-    <%= image_tag image.url, class: "show-img mb-3" %>
-  <% end %>
-  <%= render 'shared/form' %>
+  <%= @post.title %></p>
+<% @post.images.each_with_index do |image| %>
+  <div class="edit">
+    <%= image_tag image.url, class: "edit-img mb-3" %>
+    <div class="edit-btn">
+      <i class="fas fa-times-circle fa-lg"></i>
+    </div>
+  </div>
+<% end %>
+<%= render 'shared/form' %>
 </div>
