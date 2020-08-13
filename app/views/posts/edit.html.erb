@@ -1,2 +1,8 @@
-<h1>編集</h1>
-<%= render 'shared/form' %>
+<div class="container-fluid mt-5" style="max-width: 800px; text-align: center;">
+  <h1>編集</h1>
+  <p><%= @post.title %></p>
+  <% @post.images.each do |image| %>
+    <%= image_tag image.url, class: "show-img mb-3" %>
+  <% end %>
+  <%= render 'shared/form' %>
+</div>
