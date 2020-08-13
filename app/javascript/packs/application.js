@@ -11,15 +11,23 @@ require("bootstrap/dist/js/bootstrap")
 require("@fortawesome/fontawesome-free/js/all")
 require("./long-press-event")
 
-document.addEventListener("turbolinks:load", function () {
+document.addEventListener("turbolinks:load", () => {
+  const editForm = document.getElementById('edit-form')
   const editImages = document.querySelectorAll(".edit-img")
-  const editBtn = document.querySelectorAll('.edit-btn')
+  const editBtns = document.querySelectorAll('.edit-btn')
 
   editImages.forEach((el) => {
-    el.addEventListener("long-press", function () {
-      editBtn.forEach((ele) => {
+    el.addEventListener("long-press", () => {
+      editBtns.forEach((ele) => {
         ele.classList.remove("d-none")
       })
+    })
+  })
+
+  editBtns.forEach((el) => {
+    el.addEventListener("click", () => {
+      el.parentNode.classList.add("d-none")
+      editForm.insertAdjacentHTML('afterbegin', `<input type="hidden" name="indexes[]" value="${el.id}">`)
     })
   })
 })

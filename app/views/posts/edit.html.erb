@@ -1,10 +1,10 @@
 <div class="container-fluid mt-5" style="max-width: 1200px; text-align: center;">
   <h1>編集</h1>
   <%= @post.title %></p>
-<% @post.images.each_with_index do |image| %>
+<% @post.images.each_with_index do |image, index| %>
   <div class="edit">
     <%= image_tag image.url, class: "edit-img mb-3" %>
-    <div class="edit-btn d-none">
+    <div id="<%= index %>" class="edit-btn d-none">
       <i class="fas fa-times-circle fa-lg"></i>
     </div>
   </div>
