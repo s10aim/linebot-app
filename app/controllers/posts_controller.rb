@@ -23,7 +23,8 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post.update!(post_params)
+    add_more_images(post_params[:images])
+    @post.update!(post_params.except(:images))
     redirect_to root_path
   end
 
@@ -34,12 +35,20 @@ class PostsController < ApplicationController
 
   private
 
-  def post_params
-    params.require(:post).permit(:title, :content, { images: [] })
-  end
-
   def correct_user
     @post = current_user.posts.find_by(id: params[:id])
     redirect_to root_path if @post.nil?
+  end
+
+  def add_more_images(new_images)
+    if new_images.present?
+      images = @post.images
+      images += new_images
+      @post.images = images
+    end
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :content, { images: [] })
   end
 end
