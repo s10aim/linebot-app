@@ -23,6 +23,7 @@ class PostsController < ApplicationController
   end
 
   def update
+    remove_images(params[:indexes])
     add_more_images(post_params[:images])
     @post.update!(post_params.except(:images))
     redirect_to root_path
@@ -45,6 +46,29 @@ class PostsController < ApplicationController
       images = @post.images
       images += new_images
       @post.images = images
+    end
+  end
+
+  def remove_image_at_index(index)
+    remain_images = @post.images
+    if index == 0 && @post.images.size == 1
+      @post.remove_images!
+    else
+      deleted_image = remain_images.delete_at(index)
+      deleted_image.try(:remove!)
+      @post.images = remain_images
+    end
+  end
+
+  def remove_images(indexes)
+    return if indexes.blank?
+
+    sorted_indexes = indexes.map(&:to_i).sort.reverse
+    # index番号が小さい方から消してしまうと配列の番号が入れ替わる
+    # 番号が大きいものから削除するためにsortとreverse
+
+    sorted_indexes.each do |index|
+      remove_image_at_index(index)
     end
   end
 
