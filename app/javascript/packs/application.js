@@ -13,21 +13,21 @@ require("./long-press-event")
 
 document.addEventListener("turbolinks:load", () => {
   const editForm = document.getElementById('edit-form')
-  const editImages = document.querySelectorAll(".edit-img")
+  const editImages = document.querySelectorAll('.edit-img')
   const editBtns = document.querySelectorAll('.edit-btn')
 
-  editImages.forEach((el) => {
-    el.addEventListener("long-press", () => {
-      editBtns.forEach((ele) => {
-        ele.classList.remove("d-none")
+  editImages.forEach((editImage) => {
+    editImage.addEventListener("long-press", () => {
+      editBtns.forEach((editBtn) => {
+        editBtn.classList.remove("d-none")
       })
     })
   })
 
-  editBtns.forEach((el) => {
-    el.addEventListener("click", () => {
-      el.parentNode.classList.add("d-none")
-      editForm.insertAdjacentHTML('afterbegin', `<input type="hidden" name="indexes[]" value="${el.id}">`)
+  editBtns.forEach((editBtn) => {
+    editBtn.addEventListener("click", () => {
+      editBtn.parentNode.classList.add("d-none")
+      editForm.insertAdjacentHTML('afterbegin', `<input type="hidden" name="indexes[]" value="${editBtn.id}">`)
     })
   })
 })
