@@ -1,3 +1,7 @@
-<h1>詳細</h1>
-<p>タイトル： <%= @post.title %></p>
-<p>内容： <%= @post.content %></p>
+<div class="post-container">
+  <h1>詳細</h1>
+  <p><%= @post.title %></p>
+  <% @post.images.each do |image| %>
+    <%= image_tag image.url, class: "post-img" %>
+  <% end %>
+</div>

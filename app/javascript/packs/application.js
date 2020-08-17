@@ -10,6 +10,18 @@ require("channels")
 require("bootstrap/dist/js/bootstrap")
 require("@fortawesome/fontawesome-free/js/all")
 
+document.addEventListener("turbolinks:load", () => {
+  const editForm = document.getElementById('edit-form')
+  const editBtns = document.querySelectorAll('.edit-btn')
+
+  editBtns.forEach((editBtn) => {
+    editBtn.addEventListener("click", () => {
+      editBtn.parentNode.classList.add("d-none")
+      editForm.insertAdjacentHTML('afterbegin', `<input type="hidden" name="indexes[]" value="${editBtn.id}">`)
+    })
+  })
+})
+
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)

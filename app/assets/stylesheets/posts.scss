@@ -1,0 +1,33 @@
+.edit {
+  position: relative;
+  display: inline-block;
+}
+
+.edit-btn {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  opacity: 0.8;
+}
+
+.fa-times-circle {
+  background-color: white;
+  border-radius: 50%;
+}
+
+.post-img {
+  display: inline-block;
+  max-width: 280px;
+  max-height: 380px;
+  margin-bottom: 16px;
+}
+
+.post-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 15px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 48px;
+  text-align: center;
+}
