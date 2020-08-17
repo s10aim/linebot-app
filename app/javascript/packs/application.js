@@ -9,7 +9,6 @@ require("@rails/activestorage").start()
 require("channels")
 require("bootstrap/dist/js/bootstrap")
 require("@fortawesome/fontawesome-free/js/all")
-require("./long-press-event")
 
 document.addEventListener("turbolinks:load", () => {
   const editForm = document.getElementById('edit-form')
