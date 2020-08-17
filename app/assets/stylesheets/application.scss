@@ -24,6 +24,7 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 
 body {
   padding-top: 56px;
+  padding-bottom: 56px;
 }
 
 .header-nav {
@@ -41,4 +42,23 @@ body {
 
 .new-plus {
   color: #717a8f;
+}
+
+footer {
+  height: 56px;
+  background-color: #212c41;
+  width: 100%;
+  text-align: right;
+}
+
+.footer-link {
+  color: #717a8f;
+  display: inline-block;
+  margin-top: 15px;
+  padding-right: 16px;
+
+  &:hover {
+    color: #717a8f;
+    text-decoration: none
+  }
 }
