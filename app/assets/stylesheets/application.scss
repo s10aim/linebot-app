@@ -21,3 +21,24 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import "@fortawesome/fontawesome-free/scss/regular";
 @import "@fortawesome/fontawesome-free/scss/solid";
 @import "@fortawesome/fontawesome-free/scss/brands";
+
+body {
+  padding-top: 56px;
+}
+
+.header-nav {
+  background-color: #212c41;
+  width: 100%;
+}
+
+.header-nav .navbar-brand {
+  color: #717a8f;
+
+  &:hover {
+    color: #717a8f;
+  }
+}
+
+.new-plus {
+  color: #717a8f;
+}
