@@ -3,8 +3,8 @@
   <%= @post.title %></p>
 <% @post.images.each_with_index do |image, index| %>
   <div class="edit">
-    <%= image_tag image.url, class: "post-img edit-img" %>
-    <div id="<%= index %>" class="edit-btn d-none">
+    <%= image_tag image.url, class: "post-img" %>
+    <div id="<%= index %>" class="edit-btn">
       <i class="fas fa-times-circle fa-lg"></i>
     </div>
   </div>

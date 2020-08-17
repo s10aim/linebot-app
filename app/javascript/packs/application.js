@@ -13,16 +13,7 @@ require("./long-press-event")
 
 document.addEventListener("turbolinks:load", () => {
   const editForm = document.getElementById('edit-form')
-  const editImages = document.querySelectorAll('.edit-img')
   const editBtns = document.querySelectorAll('.edit-btn')
-
-  editImages.forEach((editImage) => {
-    editImage.addEventListener("long-press", () => {
-      editBtns.forEach((editBtn) => {
-        editBtn.classList.remove("d-none")
-      })
-    })
-  })
 
   editBtns.forEach((editBtn) => {
     editBtn.addEventListener("click", () => {
