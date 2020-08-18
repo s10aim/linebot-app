@@ -14,11 +14,10 @@
       <% @posts.each.with_index(1) do |post, i| %>
         <tr>
           <th scope="row"><%= i %></th>
-          <td class="text-left"><%= post.title %></td>
+          <td class="text-left">
+            <%= link_to post.title, "#", class: "modal-index", data: { toggle: "modal", target: "#post-title-#{post.id}" } %>
+          </td>
           <td class="text-nowrap">
-            <%= link_to post, class: "btn btn-light" do %>
-              <i class="far fa-file-alt"></i>
-            <% end%>
             <%= link_to edit_post_path(post), class: "btn btn-light" do %>
               <i class="far fa-edit"></i>
             <% end %>
@@ -27,6 +26,28 @@
             <% end %>
           </td>
         </tr>
+        <div class="modal fade" id="post-title-<%= post.id %>" tabindex="-1" role="dialog" aria-labelledby="post-<%= post.id %>" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="post-<%= post.id %>"><%= post.title %></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%# <% binding.pry %>
+                <% post.images.each do |image| %>
+                  <%= image_tag image.url, class: "post-img" %>
+                <% end %>
+              </div>
+              <div class="modal-footer">
+                <%= link_to "edit", edit_post_path(post), class: "btn btn-success" %>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
       <% end %>
     </tbody>
   </table>
