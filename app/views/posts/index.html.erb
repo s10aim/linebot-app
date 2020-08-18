@@ -1,10 +1,12 @@
 <div class="post-index my-5">
-  <h1>投稿一覧</h1>
-  <table>
+  <h1>KEY WORD</h1>
+  <table class="table">
     <thead>
       <tr>
         <th scope="col">No.</th>
-        <th scope="col">タイトル</th>
+        <div class="post-keyword">
+          <th scope="col" class="w-100 text-left">キーワード</th>
+        </div>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -12,8 +14,8 @@
       <% @posts.each.with_index(1) do |post, i| %>
         <tr>
           <th scope="row"><%= i %></th>
-          <td><%= post.title %></td>
-          <td>
+          <td class="text-left"><%= post.title %></td>
+          <td class="text-nowrap">
             <%= link_to "詳細", post %>
             <%= link_to "編集", edit_post_path(post) %>
             <%= link_to "削除", post, method: :delete, data: { confirm: "削除しますか?" } %>
