@@ -16,9 +16,15 @@
           <th scope="row"><%= i %></th>
           <td class="text-left"><%= post.title %></td>
           <td class="text-nowrap">
-            <%= link_to "詳細", post %>
-            <%= link_to "編集", edit_post_path(post) %>
-            <%= link_to "削除", post, method: :delete, data: { confirm: "削除しますか?" } %>
+            <%= link_to post, class: "btn btn-light" do %>
+              <i class="far fa-file-alt"></i>
+            <% end%>
+            <%= link_to edit_post_path(post), class: "btn btn-light" do %>
+              <i class="far fa-edit"></i>
+            <% end %>
+            <%= link_to post, class: "btn btn-light", method: :delete, data: { confirm: "削除しますか?" } do %>
+              <i class="far fa-trash-alt"></i>
+            <% end %>
           </td>
         </tr>
       <% end %>
