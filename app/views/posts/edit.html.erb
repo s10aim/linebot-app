@@ -1,4 +1,4 @@
-<div class="post-container">
+<div class="post-container mb-3">
   <h1>編集</h1>
   <%= @post.title %></p>
 <% @post.images.each_with_index do |image, index| %>
@@ -9,5 +9,5 @@
     </div>
   </div>
 <% end %>
-<%= render 'form' %>
 </div>
+<%= render 'form' %>
