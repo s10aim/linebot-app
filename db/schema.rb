@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2020_08_22_063154) do
     t.string "provider"
     t.string "uid"
     t.string "name"
+    t.datetime "remember_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
