@@ -1,1 +1,6 @@
-<%= link_to "投稿一覧", posts_path %> <%= link_to "新規投稿", new_post_path %>
+<nav class="navbar header-nav fixed-top">
+  <%= link_to "LINE BOT", posts_path, class: "navbar-brand" %>
+  <%= link_to new_post_path do %>
+    <i class="far fa-plus-square new-plus fa-lg"></i>
+  <% end %>
+</nav>

@@ -1,24 +1,58 @@
-<p><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link', data: { confirm: "ログアウトしますか?" } %></p>
-<h1>投稿一覧</h1>
-<table>
-  <thead>
-    <tr>
-      <th scope="col">No.</th>
-      <th scope="col">タイトル</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @posts.each.with_index(1) do |post, i| %>
+<div class="post-index my-5">
+  <h1>KEY WORD</h1>
+  <table class="table">
+    <thead>
       <tr>
-        <th scope="row"><%= i %></th>
-        <td><%= post.title %></td>
-        <td>
-          <%= link_to "詳細", post %>
-          <%= link_to "編集", edit_post_path(post) %>
-          <%= link_to "削除", post, method: :delete, data: { confirm: "削除しますか?" } %>
-        </td>
+        <th scope="col">No.</th>
+        <div class="post-keyword">
+          <th scope="col" class="w-100 text-left">キーワード</th>
+        </div>
+        <th scope="col"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @posts.each.with_index(1) do |post, i| %>
+        <tr>
+          <th scope="row"><%= i %></th>
+          <td class="text-left">
+            <%= link_to post.title, "#", class: "modal-index", data: { toggle: "modal", target: "#post-title-#{post.id}" } %>
+          </td>
+          <td class="text-nowrap">
+            <%= link_to edit_post_path(post), class: "btn btn-light" do %>
+              <i class="far fa-edit"></i>
+            <% end %>
+            <%= link_to post, class: "btn btn-light", method: :delete, data: { confirm: "削除しますか?" } do %>
+              <i class="far fa-trash-alt"></i>
+            <% end %>
+          </td>
+        </tr>
+        <div class="modal fade" id="post-title-<%= post.id %>" tabindex="-1" role="dialog" aria-labelledby="post-<%= post.id %>" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="post-<%= post.id %>"><%= post.title %></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%# <% binding.pry %>
+                <% post.images.each do |image| %>
+                  <%= image_tag image.url, class: "post-img" %>
+                <% end %>
+                <div class="post-modal-content">
+                  <%# <%= simple_format(h(post.content)) %>
+                  <%= safe_join(post.content.split("\n"), tag(:br)) %>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <%= link_to "Edit", edit_post_path(post), class: "btn btn-success" %>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </tbody>
+  </table>
+</div>
