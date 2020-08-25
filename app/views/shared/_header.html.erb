@@ -1,6 +1,10 @@
 <nav class="navbar header-nav fixed-top">
-  <%= link_to "LINE BOT", posts_path, class: "navbar-brand" %>
-  <%= link_to new_post_path do %>
-    <i class="far fa-plus-square new-plus fa-lg"></i>
+  <% if user_signed_in? %>
+    <%= link_to "LINE BOT", posts_path, class: "navbar-brand" %>
+    <%= link_to new_post_path do %>
+      <i class="far fa-plus-square new-plus fa-lg"></i>
+    <% end %>
+  <% else %>
+    <span class="navbar-brand">LINE BOT</span>
   <% end %>
 </nav>
