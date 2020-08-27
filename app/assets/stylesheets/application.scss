@@ -16,11 +16,13 @@
 
 @import "bootstrap/scss/bootstrap";
 
-$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
+$fa-font-path: "@fortawesome/fontawesome-free/webfonts";
 @import "@fortawesome/fontawesome-free/scss/fontawesome";
 @import "@fortawesome/fontawesome-free/scss/regular";
 @import "@fortawesome/fontawesome-free/scss/solid";
 @import "@fortawesome/fontawesome-free/scss/brands";
+
+@import "dropzone/dist/dropzone";
 
 body {
   padding-top: 56px;
@@ -59,7 +61,7 @@ footer {
 
   &:hover {
     color: #717a8f;
-    text-decoration: none
+    text-decoration: none;
   }
 }
 
@@ -163,4 +165,8 @@ footer {
       transform: rotate(-35deg);
     }
   }
+}
+
+.dz-progress {
+  display: none;
 }
