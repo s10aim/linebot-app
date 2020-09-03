@@ -20,7 +20,7 @@ document.addEventListener("turbolinks:load", () => {
   editBtns.forEach((editBtn) => {
     editBtn.addEventListener("click", () => {
       editBtn.parentNode.classList.add("d-none");
-      editForm.insertAdjacentHTML(
+      postForm.insertAdjacentHTML(
         "afterbegin",
         `<input type="hidden" name="indexes[]" value="${editBtn.id}">`
       );
@@ -40,14 +40,16 @@ document.addEventListener("turbolinks:load", () => {
     });
 
     document.getElementById("post-btn").addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      document
-        .querySelectorAll(".dropzone .dz-preview .dz-remove")
-        .forEach((el) => {
-          el.style.display = "none";
-        });
-      postDropzone.processQueue();
+      if (postDropzone.getQueuedFiles().length > 0) {
+        e.preventDefault();
+        e.stopPropagation();
+        document
+          .querySelectorAll(".dropzone .dz-preview .dz-remove")
+          .forEach((el) => {
+            el.style.display = "none";
+          });
+        postDropzone.processQueue();
+      }
     });
 
     postDropzone.on("sendingmultiple", function (data, xhr, formData) {
