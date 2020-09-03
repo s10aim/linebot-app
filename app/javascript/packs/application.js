@@ -52,6 +52,7 @@ document.addEventListener("turbolinks:load", () => {
       dictFileTooBig: `ファイルサイズは最大${maxFilesize}MBです`,
       maxFiles: maxFiles,
       dictMaxFilesExceeded: `ファイルの最大数は${maxFiles}です`,
+      dictDefaultMessage: "Click here to upload images",
     });
 
     document.getElementById("post-btn").addEventListener("click", (e) => {

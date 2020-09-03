@@ -171,6 +171,27 @@ footer {
   display: none;
 }
 
-// .dropzone .dz-preview .dz-remove {
-//   display: none;
-// }
+.dropzone .dz-preview .dz-image {
+  width: 100px;
+  height: 100px;
+}
+
+#change-form {
+  color: #717a8f;
+}
+
+#post-dropzone {
+  min-height: 182px;
+  position: relative;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.dz-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}

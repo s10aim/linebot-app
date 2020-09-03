@@ -1,13 +1,30 @@
 <div class="post-container mb-3">
-  <h1>編集</h1>
-  <%= @post.title %></p>
-<% @post.images.each_with_index do |image, index| %>
-  <div class="edit">
-    <%= image_tag image.url, class: "post-img" %>
-    <div id="<%= index %>" class="edit-btn">
-      <i class="fas fa-times-circle fa-lg"></i>
+  <h1 class="text-center mb-4">編集</h1>
+  <%= form_with model: @post, local: true, id: "post-form" do |form| %>
+    <div class="form-group">
+      <%= form.label :title, "キーワード" %>
+      <%= form.text_field :title, class: "form-control mb-4" %>
     </div>
-  </div>
-<% end %>
+    <% if @post.content.present? %>
+      <div>
+        <%= form.label :content, "本文" %>
+        <%= form.text_area :content, class: "form-control mb-3", rows: 7 %>
+      </div>
+    <% else %>
+      <div class="edit-images">
+        <% @post.images.each_with_index do |image, index| %>
+          <div class="edit">
+            <%= image_tag image.url, class: "post-img" %>
+            <div id="<%= index %>" class="edit-btn">
+              <i class="fas fa-times-circle fa-lg"></i>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div id="post-dropzone"></div>
+    <% end %>
+    <div class="text-right">
+      <%= form.submit "送信", class: "btn btn-outline-dark mt-3 mb-5", id: "post-btn" %>
+    </div>
+  <% end %>
 </div>
-<%= render 'form' %>
