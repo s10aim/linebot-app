@@ -1,8 +1,14 @@
 <nav class="navbar header-nav fixed-top">
   <% if user_signed_in? %>
     <%= link_to "LINE BOT", posts_path, class: "navbar-brand" %>
-    <%= link_to new_post_path do %>
-      <i class="far fa-plus-square new-plus fa-lg"></i>
+    <% if request.fullpath == "/posts/new" %>
+      <div id="change-form">
+        <i class="fas fa-random fa-lg"></i>
+      </div>
+    <% else %>
+      <%= link_to new_post_path do %>
+        <i class="far fa-plus-square new-plus fa-lg"></i>
+      <% end %>
     <% end %>
   <% else %>
     <span class="navbar-brand">LINE BOT</span>

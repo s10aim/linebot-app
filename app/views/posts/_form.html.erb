@@ -14,7 +14,7 @@
   <% end %>
 </div>
 <div class="form-container">
-  <%= form_with model: @post, local: true, id: "post-form" do |form| %>
+  <%= form_with model: @post, local: true, id: "post-form", class: "d-none" do |form| %>
     <div class="form-group">
       <%= form.label :title, "タイトル" %>
       <%= form.text_field :title, class: "form-control" %>

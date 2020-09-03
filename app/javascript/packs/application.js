@@ -18,6 +18,7 @@ document.addEventListener("turbolinks:load", () => {
   const editForm = document.getElementById("edit-form");
   const editBtns = document.querySelectorAll(".edit-btn");
   const postForm = document.getElementById("post-form");
+  const changeForm = document.getElementById("change-form");
 
   editBtns.forEach((editBtn) => {
     editBtn.addEventListener("click", () => {
@@ -28,6 +29,13 @@ document.addEventListener("turbolinks:load", () => {
       );
     });
   });
+
+  if (changeForm) {
+    changeForm.addEventListener("click", () => {
+      postForm.classList.toggle("d-none");
+      editForm.classList.toggle("d-none");
+    });
+  }
 
   if (postForm) {
     document.getElementById("post-dropzone").classList.add("dropzone");
