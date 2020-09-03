@@ -11,6 +11,8 @@ require("bootstrap/dist/js/bootstrap");
 require("@fortawesome/fontawesome-free/js/all");
 
 const Dropzone = require("dropzone/dist/dropzone");
+const maxFiles = 10;
+const maxFilesize = 30;
 
 document.addEventListener("turbolinks:load", () => {
   const editForm = document.getElementById("edit-form");
@@ -37,6 +39,11 @@ document.addEventListener("turbolinks:load", () => {
       addRemoveLinks: true,
       dictRemoveFile: "削除",
       uploadMultiple: true,
+      parallelUploads: maxFiles,
+      maxFilesize: maxFilesize,
+      dictFileTooBig: `ファイルサイズは最大${maxFilesize}MBです`,
+      maxFiles: maxFiles,
+      dictMaxFilesExceeded: `ファイルの最大数は${maxFiles}です`,
     });
 
     document.getElementById("post-btn").addEventListener("click", (e) => {
@@ -58,7 +65,7 @@ document.addEventListener("turbolinks:load", () => {
       });
     });
 
-    postDropzone.on("complete", () => {
+    postDropzone.on("success", () => {
       location.href = `/posts`;
     });
   }
