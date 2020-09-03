@@ -32,10 +32,23 @@ document.addEventListener("turbolinks:load", () => {
 
     var postDropzone = new Dropzone("#post-dropzone", {
       url: postForm.action,
+      autoDiscover: false,
       autoProcessQueue: false,
       addRemoveLinks: true,
-      uploadMultiple: true,
       dictRemoveFile: "削除",
+      uploadMultiple: true,
+    });
+
+    document.getElementById("post-btn").addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      postDropzone.processQueue();
+    });
+
+    postDropzone.on("sendingmultiple", function (data, xhr, formData) {
+      document.querySelectorAll("#post-form input").forEach((e) => {
+        formData.append(e.name, e.value);
+      });
     });
   }
 });
