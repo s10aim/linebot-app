@@ -36,14 +36,15 @@
                 </button>
               </div>
               <div class="modal-body">
-                <%# <% binding.pry %>
-                <% post.images.each do |image| %>
-                  <%= image_tag image.url, class: "post-img" %>
+                <% if post.images? %>
+                  <% post.images.each do |image| %>
+                    <%= image_tag image.url, class: "post-img" %>
+                  <% end %>
+                <% else %>
+                  <div class="post-modal-content">
+                    <%= safe_join(post.content&.split("\n"), tag(:br)) %>
+                  </div>
                 <% end %>
-                <div class="post-modal-content">
-                  <%# <%= simple_format(h(post.content)) %>
-                  <%= safe_join(post.content.split("\n"), tag(:br)) %>
-                </div>
               </div>
               <div class="modal-footer">
                 <%= link_to "Edit", edit_post_path(post), class: "btn btn-success" %>

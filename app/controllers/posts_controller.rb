@@ -15,8 +15,14 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    @post.save!
-    redirect_to root_path
+    if params[:file].present?
+      @post.images = params[:file].values
+      @post.save!
+      render json: {}
+    else
+      @post.save!
+      redirect_to root_path
+    end
   end
 
   def edit

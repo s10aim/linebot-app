@@ -42,6 +42,11 @@ document.addEventListener("turbolinks:load", () => {
     document.getElementById("post-btn").addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
+      document
+        .querySelectorAll(".dropzone .dz-preview .dz-remove")
+        .forEach((el) => {
+          el.style.display = "none";
+        });
       postDropzone.processQueue();
     });
 
@@ -49,6 +54,10 @@ document.addEventListener("turbolinks:load", () => {
       document.querySelectorAll("#post-form input").forEach((e) => {
         formData.append(e.name, e.value);
       });
+    });
+
+    postDropzone.on("complete", () => {
+      location.href = `/posts`;
     });
   }
 });
