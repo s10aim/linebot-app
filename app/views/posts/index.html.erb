@@ -42,7 +42,7 @@
                   <% end %>
                 <% else %>
                   <div class="post-modal-content">
-                    <%= safe_join(post.content&.split("\n"), tag(:br)) %>
+                    <%= safe_join(post.content&.split("\n") || [""], tag(:br)) %>
                   </div>
                 <% end %>
               </div>
