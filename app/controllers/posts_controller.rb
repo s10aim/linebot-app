@@ -15,8 +15,14 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    @post.save!
-    redirect_to root_path
+    if params[:file].present?
+      @post.images = params[:file].values
+      @post.save!
+      render json: {}
+    else
+      @post.save!
+      redirect_to root_path
+    end
   end
 
   def edit
@@ -24,9 +30,12 @@ class PostsController < ApplicationController
 
   def update
     remove_images(params[:indexes])
-    add_more_images(post_params[:images])
+    add_more_images(params[:file]&.values)
     @post.update!(post_params.except(:images))
-    redirect_to root_path
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.json { render json: {} }
+    end
   end
 
   def destroy
@@ -73,6 +82,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, { images: [] })
+    params.require(:post).permit(:title, :content)
   end
 end
