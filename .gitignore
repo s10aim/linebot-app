@@ -9,6 +9,8 @@
 /vendor/bundle
 /.env
 /public/uploads/
+localhost-key.pem
+localhost.pem
 
 # Ignore all logfiles and tempfiles.
 /log/*
