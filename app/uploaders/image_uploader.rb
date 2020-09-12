@@ -47,10 +47,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # process convert: "jpg"
 
-  def filename
-    super.chomp(File.extname(super)) + ".jpg" if original_filename.present?
-  end
-
   def size_range
     0..30.megabytes
   end
