@@ -18,20 +18,28 @@ class LinebotController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           title = event.message["text"]
           post = Post.find_by(title: title)
-          image = post.images.sample
-          content = post.content
 
-          if post.content.present?
+          if post.nil?
             message = {
               type: "text",
-              text: content,
+              text: "返すものがないよん(´·ω·`)",
             }
           else
-            message = {
-              type: "image",
-              originalContentUrl: image.url,
-              previewImageUrl: image.url,
-            }
+            image = post.images.sample
+            content = post.content
+
+            if content.present?
+              message = {
+                type: "text",
+                text: content,
+              }
+            elsif image.present?
+              message = {
+                type: "image",
+                originalContentUrl: image.url,
+                previewImageUrl: image.url,
+              }
+            end
           end
         end
       end
