@@ -56,8 +56,8 @@ footer {
 .footer-link {
   color: #717a8f;
   display: inline-block;
-  margin-top: 15px;
-  padding-right: 16px;
+  padding: 0px 16px 16px;
+  vertical-align: middle;
 
   &:hover {
     color: #717a8f;
@@ -194,4 +194,9 @@ footer {
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+}
+
+.add-linebot {
+  color: #717a8f;
+  margin-top: 12px;
 }
