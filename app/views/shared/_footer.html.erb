@@ -1,5 +1,6 @@
 <footer class="fixed-bottom">
   <% if user_signed_in? %>
+    <a href="https://lin.ee/EfZ66hT"><i class="fab fa-line add-linebot fa-2x"></i></a>
     <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'footer-link', data: { confirm: "ログアウトしますか?" } %>
   <% end %>
 </footer>
