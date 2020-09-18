@@ -27,6 +27,13 @@ document.addEventListener("turbolinks:load", () => {
   const postTextbtn = document.getElementById("post-text-btn");
   const editDropbtn = document.getElementById("edit-drop-btn");
   const editTextbtn = document.getElementById("edit-text-btn");
+  const keywords = document.getElementById('keywords')
+  let keywordList
+
+  // 新規投稿 & 編集
+  if (keywords) {
+    keywordList = JSON.parse(keywords.dataset.keywords)
+  }
 
   // 新規投稿＆編集（Dropzoneあり）
   if (postDropzoneId) {
@@ -62,10 +69,21 @@ document.addEventListener("turbolinks:load", () => {
   if (formContent) {
     [textFormtitle, formContent].forEach((form) => {
       form.addEventListener("keyup", () => {
-        if (postTextbtn) {
-          postTextbtn.disabled = !(textFormtitle.value && formContent.value);
+        const keyword = textFormtitle.value
+        const isKeywordDuplicate = keywordList.some(el => el == keyword)
+        const textFormTitleEmpty = !textFormtitle.value
+        const textContentTitleEmpty = !formContent.value
+
+        if (isKeywordDuplicate) {
+          textFormtitle.classList.add('is-invalid')
         } else {
-          editTextbtn.disabled = !(textFormtitle.value && formContent.value);
+          textFormtitle.classList.remove('is-invalid')
+        }
+
+        if (postTextbtn) {
+          postTextbtn.disabled = (isKeywordDuplicate || textFormTitleEmpty || textContentTitleEmpty);
+        } else {
+          editTextbtn.disabled = (isKeywordDuplicate || textFormTitleEmpty || textContentTitleEmpty);
         }
       });
     });
@@ -90,8 +108,19 @@ document.addEventListener("turbolinks:load", () => {
     });
 
     const postValidation = () => {
-      postDropbtn.disabled = !(
-        dropFormtitle.value && postDropzone.getQueuedFiles().length
+      const keyword = dropFormtitle.value
+      const isKeywordDuplicate = keywordList.some(el => el == keyword)
+      const dropFormTitleEmpty = !dropFormtitle.value
+      const dropzoneContentEmpty = postDropzone.getQueuedFiles().length == 0
+
+      if (isKeywordDuplicate) {
+        dropFormtitle.classList.add('is-invalid')
+      } else {
+        dropFormtitle.classList.remove('is-invalid')
+      }
+
+      postDropbtn.disabled = (
+        isKeywordDuplicate || dropFormTitleEmpty || dropzoneContentEmpty
       );
     };
 
@@ -128,13 +157,22 @@ document.addEventListener("turbolinks:load", () => {
     });
 
     const editValidation = () => {
+      const keyword = textFormtitle.value
+      const isKeywordDuplicate = keywordList.some(el => el == keyword)
       const postedEmpty =
         document.querySelectorAll(".edit").length -
-          document.querySelectorAll(".edit-images .d-none").length ==
+        document.querySelectorAll(".edit-images .d-none").length ==
         0;
       const dropEmpty = postDropzone.getQueuedFiles().length == 0;
       const imagesEmpty = postedEmpty && dropEmpty;
-      editDropbtn.disabled = !textFormtitle.value || imagesEmpty;
+
+      if (isKeywordDuplicate) {
+        textFormtitle.classList.add('is-invalid')
+      } else {
+        textFormtitle.classList.remove('is-invalid')
+      }
+
+      editDropbtn.disabled = !keyword || imagesEmpty || isKeywordDuplicate;
     };
 
     textFormtitle.addEventListener("keyup", () => editValidation());

@@ -11,6 +11,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @keywords = current_user.posts.pluck(:title)
   end
 
   def create
@@ -26,6 +27,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @keywords = current_user.posts.pluck(:title) - [@post[:title]]
   end
 
   def update

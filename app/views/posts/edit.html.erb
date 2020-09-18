@@ -3,7 +3,10 @@
   <%= form_with model: @post, local: true, id: "post-form" do |form| %>
     <div class="form-group">
       <%= form.label :title, "キーワード" %>
-      <%= form.text_field :title, class: "form-control mb-4", id: "post-text-title" %>
+      <%= form.text_field :title, class: "form-control", id: "post-text-title" %>
+      <div class="invalid-feedback">
+        同じキーワードがすでに存在しています。
+      </div>
     </div>
     <% if @post.content.present? %>
       <div>
@@ -31,3 +34,4 @@
     <% end %>
   <% end %>
 </div>
+<div id="keywords" data-keywords='<%= @keywords %>'></div>
