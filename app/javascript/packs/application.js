@@ -157,13 +157,22 @@ document.addEventListener("turbolinks:load", () => {
     });
 
     const editValidation = () => {
+      const keyword = textFormtitle.value
+      const isKeywordDuplicate = keywordList.some(el => el == keyword)
       const postedEmpty =
         document.querySelectorAll(".edit").length -
         document.querySelectorAll(".edit-images .d-none").length ==
         0;
       const dropEmpty = postDropzone.getQueuedFiles().length == 0;
       const imagesEmpty = postedEmpty && dropEmpty;
-      editDropbtn.disabled = !textFormtitle.value || imagesEmpty;
+
+      if (isKeywordDuplicate) {
+        textFormtitle.classList.add('is-invalid')
+      } else {
+        textFormtitle.classList.remove('is-invalid')
+      }
+
+      editDropbtn.disabled = !keyword || imagesEmpty || isKeywordDuplicate;
     };
 
     textFormtitle.addEventListener("keyup", () => editValidation());
