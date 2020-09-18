@@ -27,6 +27,13 @@ document.addEventListener("turbolinks:load", () => {
   const postTextbtn = document.getElementById("post-text-btn");
   const editDropbtn = document.getElementById("edit-drop-btn");
   const editTextbtn = document.getElementById("edit-text-btn");
+  const keywords = document.getElementById('keywords')
+  let keywordList
+
+  // 新規投稿 & 編集
+  if (keywords) {
+    keywordList = JSON.parse(keywords.dataset.keywords)
+  }
 
   // 新規投稿＆編集（Dropzoneあり）
   if (postDropzoneId) {
@@ -62,10 +69,22 @@ document.addEventListener("turbolinks:load", () => {
   if (formContent) {
     [textFormtitle, formContent].forEach((form) => {
       form.addEventListener("keyup", () => {
-        if (postTextbtn) {
-          postTextbtn.disabled = !(textFormtitle.value && formContent.value);
+        const keyword = document.getElementById('post-text-title').value
+
+        const isKeywordDuplicate = keywordList.some(el => el == keyword)
+        const textFormTitleEmpty = !textFormtitle.value
+        const textContentTitleEmpty = !formContent.value
+
+        if (isKeywordDuplicate) {
+          textFormtitle.classList.add('is-invalid')
         } else {
-          editTextbtn.disabled = !(textFormtitle.value && formContent.value);
+          textFormtitle.classList.remove('is-invalid')
+        }
+
+        if (postTextbtn) {
+          postTextbtn.disabled = (isKeywordDuplicate || textFormTitleEmpty || textContentTitleEmpty);
+        } else {
+          editTextbtn.disabled = (isKeywordDuplicate || textFormTitleEmpty || textContentTitleEmpty);
         }
       });
     });
@@ -130,7 +149,7 @@ document.addEventListener("turbolinks:load", () => {
     const editValidation = () => {
       const postedEmpty =
         document.querySelectorAll(".edit").length -
-          document.querySelectorAll(".edit-images .d-none").length ==
+        document.querySelectorAll(".edit-images .d-none").length ==
         0;
       const dropEmpty = postDropzone.getQueuedFiles().length == 0;
       const imagesEmpty = postedEmpty && dropEmpty;

@@ -3,6 +3,9 @@
     <div class="form-group">
       <%= form.label :title, "キーワード" %>
       <%= form.text_field :title, class: "form-control", id: "post-text-title" %>
+      <div class="invalid-feedback">
+        同じキーワードがすでに存在しています。
+      </div>
     </div>
     <div>
       <%= form.label :content, "本文" %>
