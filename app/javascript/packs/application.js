@@ -69,8 +69,7 @@ document.addEventListener("turbolinks:load", () => {
   if (formContent) {
     [textFormtitle, formContent].forEach((form) => {
       form.addEventListener("keyup", () => {
-        const keyword = document.getElementById('post-text-title').value
-
+        const keyword = textFormtitle.value
         const isKeywordDuplicate = keywordList.some(el => el == keyword)
         const textFormTitleEmpty = !textFormtitle.value
         const textContentTitleEmpty = !formContent.value
@@ -109,8 +108,19 @@ document.addEventListener("turbolinks:load", () => {
     });
 
     const postValidation = () => {
-      postDropbtn.disabled = !(
-        dropFormtitle.value && postDropzone.getQueuedFiles().length
+      const keyword = dropFormtitle.value
+      const isKeywordDuplicate = keywordList.some(el => el == keyword)
+      const dropFormTitleEmpty = !dropFormtitle.value
+      const dropzoneContentEmpty = postDropzone.getQueuedFiles().length == 0
+
+      if (isKeywordDuplicate) {
+        dropFormtitle.classList.add('is-invalid')
+      } else {
+        dropFormtitle.classList.remove('is-invalid')
+      }
+
+      postDropbtn.disabled = (
+        isKeywordDuplicate || dropFormTitleEmpty || dropzoneContentEmpty
       );
     };
 
