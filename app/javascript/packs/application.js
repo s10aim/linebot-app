@@ -29,6 +29,7 @@ document.addEventListener("turbolinks:load", () => {
   const editTextbtn = document.getElementById("edit-text-btn");
   const keywords = document.getElementById('keywords')
   let keywordList
+  const randomBtn = document.getElementById('drop-random')
 
   // 新規投稿 & 編集
   if (keywords) {
@@ -56,7 +57,11 @@ document.addEventListener("turbolinks:load", () => {
 
     postDropzone.on("sendingmultiple", function (data, xhr, formData) {
       document.querySelectorAll("#post-form input").forEach((e) => {
-        formData.append(e.name, e.value);
+        if (e.name == "post[random]") {
+          formData.append(e.name, e.checked)
+        } else {
+          formData.append(e.name, e.value);
+        }
       });
     });
 
@@ -112,6 +117,7 @@ document.addEventListener("turbolinks:load", () => {
       const isKeywordDuplicate = keywordList.some(el => el == keyword)
       const dropFormTitleEmpty = !dropFormtitle.value
       const dropzoneContentEmpty = postDropzone.getQueuedFiles().length == 0
+      const randomInvalid = randomBtn.checked == false && postDropzone.getQueuedFiles().length > 5
 
       if (isKeywordDuplicate) {
         dropFormtitle.classList.add('is-invalid')
@@ -120,7 +126,7 @@ document.addEventListener("turbolinks:load", () => {
       }
 
       postDropbtn.disabled = (
-        isKeywordDuplicate || dropFormTitleEmpty || dropzoneContentEmpty
+        isKeywordDuplicate || dropFormTitleEmpty || dropzoneContentEmpty || randomInvalid
       );
     };
 
@@ -129,6 +135,8 @@ document.addEventListener("turbolinks:load", () => {
     postDropzone.on("addedfiles", () => postValidation());
 
     postDropzone.on("removedfile", () => postValidation());
+
+    randomBtn.addEventListener("change", () => postValidation())
   }
 
   // 編集（画像）
