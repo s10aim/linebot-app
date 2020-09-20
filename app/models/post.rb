@@ -4,8 +4,15 @@ class Post < ApplicationRecord
 
   validates :title, presence: true, uniqueness: { scope: :user_id }
   validate :confirmation_post_form
+  validate :post_random_images
 
   def confirmation_post_form
     errors.add(:base, "画像または本文が必要です") unless content.present? ^ images?
+  end
+
+  def post_random_images
+    if images.length > 5 && !random
+      errors.add(:base, "全ての画像を送信する場合は5枚以下にして下さい")
+    end
   end
 end

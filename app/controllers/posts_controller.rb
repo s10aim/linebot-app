@@ -17,9 +17,6 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if params[:file].present?
-      if params[:file].values.length > 5 && !params[:post][:random]
-        redirect_to new_post_path
-      end
       @post.images = params[:file].values
       @post.save!
       render json: {}
