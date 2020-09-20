@@ -116,8 +116,9 @@ document.addEventListener("turbolinks:load", () => {
       const keyword = dropFormtitle.value
       const isKeywordDuplicate = keywordList.some(el => el == keyword)
       const dropFormTitleEmpty = !dropFormtitle.value
-      const dropzoneContentEmpty = postDropzone.getQueuedFiles().length == 0
-      const randomInvalid = randomBtn.checked == false && postDropzone.getQueuedFiles().length > 5
+      const imageNum = postDropzone.getQueuedFiles().length
+      const dropzoneContentEmpty = !imageNum
+      const randomInvalid = !randomBtn.checked && imageNum > 5
 
       if (isKeywordDuplicate) {
         dropFormtitle.classList.add('is-invalid')
@@ -167,12 +168,10 @@ document.addEventListener("turbolinks:load", () => {
     const editValidation = () => {
       const keyword = textFormtitle.value
       const isKeywordDuplicate = keywordList.some(el => el == keyword)
-      const postedEmpty =
-        document.querySelectorAll(".edit").length -
-        document.querySelectorAll(".edit-images .d-none").length ==
-        0;
-      const dropEmpty = postDropzone.getQueuedFiles().length == 0;
-      const imagesEmpty = postedEmpty && dropEmpty;
+      const imageTotalNum = document.querySelectorAll(".edit").length -
+        document.querySelectorAll(".edit-images .d-none").length + postDropzone.getQueuedFiles().length
+      const imagesEmpty = !imageTotalNum
+      const randomInvalid = !randomBtn.checked && imageTotalNum > 5
 
       if (isKeywordDuplicate) {
         textFormtitle.classList.add('is-invalid')
@@ -180,7 +179,7 @@ document.addEventListener("turbolinks:load", () => {
         textFormtitle.classList.remove('is-invalid')
       }
 
-      editDropbtn.disabled = !keyword || imagesEmpty || isKeywordDuplicate;
+      editDropbtn.disabled = !keyword || imagesEmpty || isKeywordDuplicate || randomInvalid
     };
 
     textFormtitle.addEventListener("keyup", () => editValidation());
@@ -192,6 +191,8 @@ document.addEventListener("turbolinks:load", () => {
     editBtns.forEach((editBtn) => {
       editBtn.addEventListener("click", () => editValidation());
     });
+
+    randomBtn.addEventListener("change", () => editValidation())
   }
 });
 
