@@ -25,20 +25,41 @@ class LinebotController < ApplicationController
               text: "返すものがないよん(´·ω·`)",
             }
           else
-            image = post.images.sample
             content = post.content
+            images = post.images
+            random_image = images.sample
 
             if content.present?
-              message = {
-                type: "text",
-                text: content,
-              }
-            elsif image.present?
-              message = {
-                type: "image",
-                originalContentUrl: image.url,
-                previewImageUrl: image.url,
-              }
+              if post.random
+                random_content = content.split(/\R{3,}/).sample
+                random_content.slice!(/\A・/)
+
+                message = {
+                  type: "text",
+                  text: random_content,
+                }
+              else
+                message = {
+                  type: "text",
+                  text: content,
+                }
+              end
+            elsif images.present?
+              if post.random
+                message = {
+                  type: "image",
+                  originalContentUrl: random_image.url,
+                  previewImageUrl: random_image.url,
+                }
+              else
+                message = images.map do |image|
+                  {
+                    type: "image",
+                    originalContentUrl: image.url,
+                    previewImageUrl: image.url,
+                  }
+                end
+              end
             end
           end
         end
