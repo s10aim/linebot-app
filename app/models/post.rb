@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  KEYWORDS_LIST = %w[リスト].freeze
+
   belongs_to :user
   mount_uploaders :images, ImageUploader
 

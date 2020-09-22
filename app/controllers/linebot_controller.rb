@@ -16,10 +16,17 @@ class LinebotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
+          current_user = User.find_by(uid: event["source"]["userId"])
           title = event.message["text"]
-          post = Post.find_by(title: title)
+          post = current_user.posts.find_by(title: title)
+          lists = current_user.posts.pluck(:title).join("\r\n\r\n")
 
-          if post.nil?
+          if Post::KEYWORDS_LIST.include?(title)
+            message = {
+              type: "text",
+              text: lists,
+            }
+          elsif post.nil?
             message = {
               type: "text",
               text: "返すものがないよん(´·ω·`)",
