@@ -11,7 +11,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @keywords = current_user.posts.pluck(:title)
+    @keywords = current_user.posts.pluck(:title) + Post::KEYWORDS_LIST
   end
 
   def create
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @keywords = current_user.posts.pluck(:title) - [@post[:title]]
+    @keywords = current_user.posts.pluck(:title) - [@post[:title]] + Post::KEYWORDS_LIST
   end
 
   def update
@@ -84,6 +84,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content)
+    params.require(:post).permit(:title, :content, :random)
   end
 end
