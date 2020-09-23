@@ -13,11 +13,11 @@
     <tbody>
       <% @posts.each.with_index(1) do |post, i| %>
         <tr>
-          <th scope="row"><%= i %></th>
-          <td class="text-left">
+          <th scope="row" class="align-middle"><%= i %></th>
+          <td class="text-left align-middle">
             <%= link_to post.title, "#", class: "modal-index", data: { toggle: "modal", target: "#post-title-#{post.id}" } %>
           </td>
-          <td class="text-nowrap">
+          <td class="text-nowrap align-middle">
             <%= link_to edit_post_path(post), class: "btn btn-light" do %>
               <i class="far fa-edit"></i>
             <% end %>
