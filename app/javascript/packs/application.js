@@ -73,7 +73,7 @@ document.addEventListener("turbolinks:load", () => {
   // 新規投稿＆編集（Dropzoneなし）
   if (formContent) {
     [textFormtitle, formContent].forEach((form) => {
-      form.addEventListener("keyup", () => {
+      form.addEventListener("input", () => {
         const keyword = textFormtitle.value
         const isKeywordDuplicate = keywordList.some(el => el == keyword)
         const textFormTitleEmpty = !textFormtitle.value
@@ -131,7 +131,7 @@ document.addEventListener("turbolinks:load", () => {
       );
     };
 
-    dropFormtitle.addEventListener("keyup", () => postValidation());
+    dropFormtitle.addEventListener("input", () => postValidation());
 
     postDropzone.on("addedfiles", () => postValidation());
 
@@ -182,7 +182,7 @@ document.addEventListener("turbolinks:load", () => {
       editDropbtn.disabled = !keyword || imagesEmpty || isKeywordDuplicate || randomInvalid
     };
 
-    textFormtitle.addEventListener("keyup", () => editValidation());
+    textFormtitle.addEventListener("input", () => editValidation());
 
     postDropzone.on("addedfiles", () => editValidation());
 
