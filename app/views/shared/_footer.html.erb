@@ -1,6 +1,41 @@
 <footer class="fixed-bottom">
   <% if user_signed_in? %>
+    <div class="fa-pull-left mt-3 ml-3">
+      <a href="#" class="info-btn" data-toggle="modal" data-target="#linebot-info-btn"><i class="fas fa-info-circle fa-lg"></i></a>
+    </div>
     <a href="https://lin.ee/EfZ66hT"><i class="fab fa-line add-linebot fa-2x"></i></a>
     <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'footer-link', data: { confirm: "ログアウトしますか?" } %>
   <% end %>
 </footer>
+<div class="modal fade" id="linebot-info-btn" tabindex="-1" role="dialog" aria-labelledby="linebot-info" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="linebot-info">LINE BOT 使い方</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-left">
+        <h5>▼キーワードと内容を登録</h5>
+        <p>・文字、または画像が登録できます。</p>
+        <p>・重複するキーワードは入力できません。</p>
+        <p>・画像は最大5枚。</p>
+        <p>・登録したキーワードをLINEBotで送信すると、対応する内容を返してくれます。</p>
+        <%= image_tag 'linebot_info1.png', size: '325x225', class: "mb-5" %>
+        <h5>▼ランダム機能</h5>
+        <p>・新規投稿ページ、編集ページにあるランダムボタンをONにすると投稿内容をランダムに返信してくれます。</p>
+        <p>・文字の場合は2行以上の改行を入れて箇条書きで入力</p>
+        <p>・箇条書きの際、最初に「・」を入力した場合もBotの返信では取り除かれます。</p>
+        <p>・画像の場合はランダムに1枚だけ返信されます。</p>
+        <p class="mb-5">・ランダムボタンがONの状態では画像は6枚以上送信できます（一度に送信できる数は10枚まで）</p>
+        <h5>▼リスト</h5>
+        <p>・LINEBot側で「リスト」と送信すると、登録したキーワード一覧が確認できます。</p>
+        <p>・キーワードを登録する際は「リスト」は使用できません。</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">戻る</button>
+      </div>
+    </div>
+  </div>
+</div>
