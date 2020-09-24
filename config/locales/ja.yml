@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    models:
+      post: 投稿
+      user: ユーザー
+    attributes:
+      post:
+        title: キーワード
+        content: 本文
+        images: 画像
+        random: ランダムで返す

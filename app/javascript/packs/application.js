@@ -4,7 +4,7 @@
 // that code so it'll be compiled.
 
 require("@rails/ujs").start();
-require("turbolinks").start();
+// require("turbolinks").start();
 require("@rails/activestorage").start();
 require("channels");
 require("bootstrap/dist/js/bootstrap");
@@ -14,7 +14,7 @@ const Dropzone = require("dropzone/dist/dropzone");
 const maxFiles = 10;
 const maxFilesize = 30;
 
-document.addEventListener("turbolinks:load", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const postTextform = document.getElementById("post-text-form");
   const editBtns = document.querySelectorAll(".edit-btn");
   const postForm = document.getElementById("post-form");
@@ -27,13 +27,13 @@ document.addEventListener("turbolinks:load", () => {
   const postTextbtn = document.getElementById("post-text-btn");
   const editDropbtn = document.getElementById("edit-drop-btn");
   const editTextbtn = document.getElementById("edit-text-btn");
-  const keywords = document.getElementById('keywords')
-  let keywordList
-  const randomBtn = document.getElementById('drop-random')
+  const keywords = document.getElementById("keywords");
+  let keywordList;
+  const randomBtn = document.getElementById("drop-random");
 
   // 新規投稿 & 編集
   if (keywords) {
-    keywordList = JSON.parse(keywords.dataset.keywords)
+    keywordList = JSON.parse(keywords.dataset.keywords);
   }
 
   // 新規投稿＆編集（Dropzoneあり）
@@ -58,7 +58,7 @@ document.addEventListener("turbolinks:load", () => {
     postDropzone.on("sendingmultiple", function (data, xhr, formData) {
       document.querySelectorAll("#post-form input").forEach((e) => {
         if (e.name == "post[random]") {
-          formData.append(e.name, e.checked)
+          formData.append(e.name, e.checked);
         } else {
           formData.append(e.name, e.value);
         }
@@ -73,22 +73,24 @@ document.addEventListener("turbolinks:load", () => {
   // 新規投稿＆編集（Dropzoneなし）
   if (formContent) {
     [textFormtitle, formContent].forEach((form) => {
-      form.addEventListener("keyup", () => {
-        const keyword = textFormtitle.value
-        const isKeywordDuplicate = keywordList.some(el => el == keyword)
-        const textFormTitleEmpty = !textFormtitle.value
-        const textContentTitleEmpty = !formContent.value
+      form.addEventListener("input", () => {
+        const keyword = textFormtitle.value;
+        const isKeywordDuplicate = keywordList.some((el) => el == keyword);
+        const textFormTitleEmpty = !textFormtitle.value;
+        const textContentTitleEmpty = !formContent.value;
 
         if (isKeywordDuplicate) {
-          textFormtitle.classList.add('is-invalid')
+          textFormtitle.classList.add("is-invalid");
         } else {
-          textFormtitle.classList.remove('is-invalid')
+          textFormtitle.classList.remove("is-invalid");
         }
 
         if (postTextbtn) {
-          postTextbtn.disabled = (isKeywordDuplicate || textFormTitleEmpty || textContentTitleEmpty);
+          postTextbtn.disabled =
+            isKeywordDuplicate || textFormTitleEmpty || textContentTitleEmpty;
         } else {
-          editTextbtn.disabled = (isKeywordDuplicate || textFormTitleEmpty || textContentTitleEmpty);
+          editTextbtn.disabled =
+            isKeywordDuplicate || textFormTitleEmpty || textContentTitleEmpty;
         }
       });
     });
@@ -113,31 +115,33 @@ document.addEventListener("turbolinks:load", () => {
     });
 
     const postValidation = () => {
-      const keyword = dropFormtitle.value
-      const isKeywordDuplicate = keywordList.some(el => el == keyword)
-      const dropFormTitleEmpty = !dropFormtitle.value
-      const imageNum = postDropzone.getQueuedFiles().length
-      const dropzoneContentEmpty = !imageNum
-      const randomInvalid = !randomBtn.checked && imageNum > 5
+      const keyword = dropFormtitle.value;
+      const isKeywordDuplicate = keywordList.some((el) => el == keyword);
+      const dropFormTitleEmpty = !dropFormtitle.value;
+      const imageNum = postDropzone.getQueuedFiles().length;
+      const dropzoneContentEmpty = !imageNum;
+      const randomInvalid = !randomBtn.checked && imageNum > 5;
 
       if (isKeywordDuplicate) {
-        dropFormtitle.classList.add('is-invalid')
+        dropFormtitle.classList.add("is-invalid");
       } else {
-        dropFormtitle.classList.remove('is-invalid')
+        dropFormtitle.classList.remove("is-invalid");
       }
 
-      postDropbtn.disabled = (
-        isKeywordDuplicate || dropFormTitleEmpty || dropzoneContentEmpty || randomInvalid
-      );
+      postDropbtn.disabled =
+        isKeywordDuplicate ||
+        dropFormTitleEmpty ||
+        dropzoneContentEmpty ||
+        randomInvalid;
     };
 
-    dropFormtitle.addEventListener("keyup", () => postValidation());
+    dropFormtitle.addEventListener("input", () => postValidation());
 
     postDropzone.on("addedfiles", () => postValidation());
 
     postDropzone.on("removedfile", () => postValidation());
 
-    randomBtn.addEventListener("change", () => postValidation())
+    randomBtn.addEventListener("change", () => postValidation());
   }
 
   // 編集（画像）
@@ -166,23 +170,26 @@ document.addEventListener("turbolinks:load", () => {
     });
 
     const editValidation = () => {
-      const keyword = textFormtitle.value
-      const isKeywordDuplicate = keywordList.some(el => el == keyword)
-      const imageTotalNum = document.querySelectorAll(".edit").length -
-        document.querySelectorAll(".edit-images .d-none").length + postDropzone.getQueuedFiles().length
-      const imagesEmpty = !imageTotalNum
-      const randomInvalid = !randomBtn.checked && imageTotalNum > 5
+      const keyword = textFormtitle.value;
+      const isKeywordDuplicate = keywordList.some((el) => el == keyword);
+      const imageTotalNum =
+        document.querySelectorAll(".edit").length -
+        document.querySelectorAll(".edit-images .d-none").length +
+        postDropzone.getQueuedFiles().length;
+      const imagesEmpty = !imageTotalNum;
+      const randomInvalid = !randomBtn.checked && imageTotalNum > 5;
 
       if (isKeywordDuplicate) {
-        textFormtitle.classList.add('is-invalid')
+        textFormtitle.classList.add("is-invalid");
       } else {
-        textFormtitle.classList.remove('is-invalid')
+        textFormtitle.classList.remove("is-invalid");
       }
 
-      editDropbtn.disabled = !keyword || imagesEmpty || isKeywordDuplicate || randomInvalid
+      editDropbtn.disabled =
+        !keyword || imagesEmpty || isKeywordDuplicate || randomInvalid;
     };
 
-    textFormtitle.addEventListener("keyup", () => editValidation());
+    textFormtitle.addEventListener("input", () => editValidation());
 
     postDropzone.on("addedfiles", () => editValidation());
 
@@ -192,7 +199,7 @@ document.addEventListener("turbolinks:load", () => {
       editBtn.addEventListener("click", () => editValidation());
     });
 
-    randomBtn.addEventListener("change", () => editValidation())
+    randomBtn.addEventListener("change", () => editValidation());
   }
 });
 
